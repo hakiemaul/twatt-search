@@ -1,0 +1,30 @@
+{
+  "name": "twatt-search",
+  "version": "1.0.0",
+  "description": "oauth practice using twitter's search api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hakiemaul/twatt-search.git"
+  },
+  "keywords": [
+    "oauth",
+    "env",
+    "express",
+    "twitter"
+  ],
+  "author": "hakiemaul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hakiemaul/twatt-search/issues"
+  },
+  "homepage": "https://github.com/hakiemaul/twatt-search#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "oauth": "^0.9.15"
+  }
+}
