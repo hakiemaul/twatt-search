@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var index = require('./routes/index')
+var search = require('./routes/search')
 
-app.use('/', index)
+app.use('/search', search)
 
 app.listen(3000)

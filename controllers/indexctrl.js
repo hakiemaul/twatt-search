@@ -1,16 +1,17 @@
 var OAuth = require('oauth');
-require('dotenv').config()
+require('dotenv').config();
+
+var oauth = new OAuth.OAuth(
+  'https://api.twitter.com/oauth/request_token',
+  'https://api.twitter.com/oauth/access_token',
+  process.env.APP_CONS_KEY,
+  process.env.APP_SEC,
+  '1.0A',
+  null,
+  'HMAC-SHA1'
+);
 
 var getSearch = function(req, res) {
-  var oauth = new OAuth.OAuth(
-    'https://api.twitter.com/oauth/request_token',
-    'https://api.twitter.com/oauth/access_token',
-    process.env.APP_CONS_KEY,
-    process.env.APP_SEC,
-    '1.0A',
-    null,
-    'HMAC-SHA1'
-  );
   oauth.get(
     `https://api.twitter.com/1.1/search/tweets.json?q=semangat%20pagi`,
     process.env.USER_TOKEN,
@@ -22,31 +23,10 @@ var getSearch = function(req, res) {
 }
 
 var findSomething = function(req, res) {
-  var oauth = new OAuth.OAuth(
-    'https://api.twitter.com/oauth/request_token',
-    'https://api.twitter.com/oauth/access_token',
-    process.env.APP_CONS_KEY,
-    process.env.APP_SEC,
-    '1.0A',
-    null,
-    'HMAC-SHA1'
-  );
   let search = req.body.search;
-  search = search.split('');
-  for(let i = 0; i < search.length; i++) {
-    switch (search[i]) {
-      case ' ':
-        search[i] = '%20'
-        break;
-      case '@':
-        search[i] = '%40'
-        break;
-      case '#':
-        search[i] = '%23'
-        break;
-    }
-  }
-  search = search.join('')
+  search = encodeURIComponent(search).replace(/[!'()*]/g, function(c) {
+    return '%' + c.charCodeAt(0).toString(16);
+  });
   oauth.get(
     `https://api.twitter.com/1.1/search/tweets.json?q=${search}`,
     process.env.USER_TOKEN,
